@@ -22,17 +22,21 @@ public class Task {
         }
         
         public void assignTo(String teamMember) {
-
+            if (teamMember == null || teamMember.isEmpty()) {
+                throw new IllegalArgumentException("Assignee name cannot be empty");
+            }
             this.assignee = teamMember;
         }
         
         public void updateStatus(TaskStatus newStatus) {
-
+            if (newStatus == null) {
+                throw new IllegalArgumentException("Status cannot be null");
+            }
             this.status = newStatus;
         }
         
         public boolean isOverdue() {
-            return true;
+            return LocalDateTime.now().isAfter(this.dueDate) && this.status != TaskStatus.DONE;
         }
         
         // Getters for testing purposes
